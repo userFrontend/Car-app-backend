@@ -2,14 +2,6 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
     firstname: {
         type: String,
         required: true
@@ -18,24 +10,32 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     role: {
         type: Number,
         default: 100,
         enum: [100, 101], // 100 - user , 101 - admin
     },
-    profilePicture: {
+    phoneNumber: {
+        type: Number,
+        default: null,
+        required: true,
+    },
+    avatar: {
         type: Object,
         default: null,
     },
-    coverPicture: {
-        type: Object,
-        default: null,
-    },
-    about: String,
-    livesIn: String,
-    coutry: String,
-    works: String,
-    relationshit: String,
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 },
 {timestamps: true},
 )

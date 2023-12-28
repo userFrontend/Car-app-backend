@@ -2,28 +2,22 @@ const mongoose = require('mongoose');
 
 
 const messageSchema = new mongoose.Schema({
-    chatId: {
+    carId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Car',
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Author',
+        required: true
+    },
+    categoryId: {
         type: String,
         required: true
     },
-    senderId: {
+    content: {
         type: String,
-        required: true
-    },
-    text: {
-        type: String,
-    },
-    isRead: {
-        type: Boolean,
-        default: false,
-    },
-    file: {
-        type: Object,
-        default: null,
-    },
-    audio: {
-        type: String,
-        default: null
     },
 },
 {timestamps: true},

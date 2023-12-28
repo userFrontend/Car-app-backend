@@ -12,7 +12,8 @@ dotenv.config();
 //routes
 const authRouter = require('./src/router/authRouter');
 const userRouter = require('./src/router/userRouter');
-const chatRouter = require('./src/router/chatRouter');
+const CategoryRouter = require('./src/router/categoryRouter');
+const carRouter = require('./src/router/carRouter');
 const messageRouter = require('./src/router/messageRouter');
 
 
@@ -39,7 +40,8 @@ app.use(cors());
 // routes use
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.use('/api/chat', chatRouter);
+app.use('/api/category', CategoryRouter);
+app.use('/api/car', carRouter);
 app.use('/api/message', messageRouter);
 
 // websocket functions

@@ -12,7 +12,7 @@ const userCtl = {
     getUser: async (req, res) => {
         const {id} = req.params
         try {
-            const findUser = await User.findById(id).select('email firstname lastname role profilePicture coverPicture about livesIn coutry works relationshit')
+            const findUser = await User.findById(id).select('email firstname lastname role avatar phoneNumber isActive createdAt updatedAt')
             if(findUser){
                 return res.status(200).json({message: "Find user", user: findUser})
             }
@@ -23,7 +23,7 @@ const userCtl = {
     },
     getAllUsers: async (req, res) => {
         try {
-            let users = await User.find().select('email firstname lastname role profilePicture coverPicture about livesIn coutry works relationshit')
+            let users = await User.find().select('email firstname lastname role avatar phoneNumber isActive createdAt updatedAt')
             res.status(200).json({message: "All users", users})
         } catch (error) {
             res.status(503).json({message: error.message})
@@ -71,32 +71,7 @@ const userCtl = {
 
                 if(updateUser){
                     if(req.files){
-                        const {image, coverImage} = req.files;
-                        if(coverImage){
-                            const bgformat = coverImage.mimetype.split('/')[1];
-                            if(bgformat !== 'png' && bgformat !== 'jpeg') {
-                                return res.status(403).json({message: 'file format incorrect'})
-                            }
-                            if(coverImage.size > 1000000) {
-                                return res.status(403).json({message: 'Image size must be less than (1) MB'})
-                            }
-
-                            const coverImg = `${v4()}.${bgformat}`
-                            coverImage.mv(path.join(uploadsDir, coverImg), (err) => {
-                                if(err){
-                                    return res.status(503).json({message: err.message})
-                                }
-                            })
-                            req.body.coverPicture = coverImg;
-
-                            if(updateUser.coverPicture){
-                                fs.unlinkSync(path.join(uploadsDir, updateUser.coverPicture), (err) => {
-                                    if(err){
-                                        return res.status(503).json({message: err.message})
-                                    }
-                                })
-                            }
-                        }
+                        const {image} = req.files;
                         if(image){
                             const format = image.mimetype.split('/')[1];
                             if(format !== 'png' && format !== 'jpeg') {
@@ -113,7 +88,7 @@ const userCtl = {
                                     return res.status(503).json({message: err.message})
                                 }
                             })
-                            req.body.profilePicture = nameImg;
+                            req.body.avatar = nameImg;  
 
                             if(updateUser.profilePicture){
                                 fs.unlinkSync(path.join(uploadsDir, updateUser.profilePicture), (err) => {
@@ -124,7 +99,7 @@ const userCtl = {
                             }
                         }
                     }
-                    const user = await User.findByIdAndUpdate(id, req.body, {new: true});
+                    const user = await User.findByIdAndUpdate(id, req.body, {new: true}).select('email firstname lastname role avatar phoneNumber isActive createdAt updatedAt ');
                     return res.status(200).json({message: "User update successfully", user})
                 }
                 return res.status(404).json({message: "User not found"})
