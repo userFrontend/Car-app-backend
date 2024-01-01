@@ -51,6 +51,7 @@ const userCtl = {
                     }
                     return res.status(200).json({message: "User deleted successfully", user: deleteUser})
                 }
+                return res.status(404).json({message: 'User not found'})
             }
             res.status(405).json({message: 'Acces Denied!. You can delete only your own accout'})
         } catch (error) {
