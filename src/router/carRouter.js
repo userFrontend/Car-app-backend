@@ -7,6 +7,7 @@ const carCtrl = require('../contoller/carCtrl');
 router.post('/', authMiddleware, carCtrl.add);
 router.get('/', carCtrl.get);
 router.get('/:id', carCtrl.getOne);
-router.delete('/:carId', authMiddleware, carCtrl.deleteChat);
+router.put('/:carId', authMiddleware, carCtrl.updateCar);
+router.delete('/:carId', authMiddleware, carCtrl.deleteCar);
 
 module.exports = router

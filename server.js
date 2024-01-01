@@ -10,11 +10,12 @@ const path = require('path')
 dotenv.config();
 
 //routes
+const banRouter = require('./src/router/banRouter');
+const carRouter = require('./src/router/carRouter');
 const authRouter = require('./src/router/authRouter');
 const userRouter = require('./src/router/userRouter');
-const CategoryRouter = require('./src/router/categoryRouter');
-const carRouter = require('./src/router/carRouter');
 const messageRouter = require('./src/router/messageRouter');
+const CategoryRouter = require('./src/router/categoryRouter');
 
 
 const app = express();
@@ -22,27 +23,29 @@ const PORT = process.env.PORT || 4001;
 
 const server = http.createServer(app)
 const io = socketIo(server, {
-    cors: {
-        // origin: "http://localhost:3000",
-        origin: "*",
-        // methods: ["GET", "POST"]
+  cors: {
+    origin: "*",
+    // origin: "http://localhost:3000", 
+    // methods: ["GET", "POST"]
     }
 })
 
-//to save filess for public
+//to save files for public
 app.use(express.static(path.join(__dirname, 'src', 'public')))
+
 //middlewares
+app.use(cors());
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(fileUpload());
-app.use(cors());
 
 // routes use
+app.use('/api/ban', banRouter);
+app.use('/api/car', carRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.use('/api/category', CategoryRouter);
-app.use('/api/car', carRouter);
 app.use('/api/message', messageRouter);
+app.use('/api/category', CategoryRouter);
 
 // websocket functions
 let activeUsers = [];
@@ -66,15 +69,6 @@ io.on("connection", (socket) => {
       activeUsers = activeUsers.filter((user) => user.userId !== id);
   
       io.emit("get-users", activeUsers);
-    });
-
-  
-    socket.on("send-message", (data) => {
-        const { receivedId } = data;
-        const user = activeUsers.find((user) => user.userId === receivedId);
-        if (user) {
-            io.to(user.socketId).emit("answer-message", data);
-      }
     });
   });
 

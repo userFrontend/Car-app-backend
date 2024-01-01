@@ -7,6 +7,6 @@ const CategoryCtrl = require('../contoller/categoryCtrl');
 router.post('/', authMiddleware, CategoryCtrl.add);
 router.get('/', CategoryCtrl.get);
 router.get('/:id', CategoryCtrl.getOne);
-router.delete('/:categoryId', authMiddleware, CategoryCtrl.deleteChat);
+router.delete('/:categoryId', authMiddleware, CategoryCtrl.deleteCategory);
 
 module.exports = router

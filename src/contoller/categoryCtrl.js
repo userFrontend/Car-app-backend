@@ -54,7 +54,7 @@ const CategoryCtrl = {
             res.status(503).json({message: error.message})
         }
     },
-    deleteChat: async (req, res) => {
+    deleteCategory: async (req, res) => {
         const {categoryId} = req.params
         try {
             const findCategory = await Category.findById(categoryId);
