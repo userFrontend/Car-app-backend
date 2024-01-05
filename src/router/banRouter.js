@@ -4,7 +4,8 @@ const banCtrl = require('../contoller/banCtrl');
 const authMiddleware = require('../middleware/authmiddleware');
 
 
-router.post('/ban', authMiddleware, banCtrl.add);
-router.delete('/ban/:id', authMiddleware, banCtrl.deleteBaned);
+router.post('/:userId', authMiddleware, banCtrl.add);
+router.get('/', authMiddleware, banCtrl.get);
+router.delete('/:userId', authMiddleware, banCtrl.deleteBaned);
 
 module.exports = router

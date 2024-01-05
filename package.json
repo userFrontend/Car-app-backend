@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "y",
   "version": "1.0.0",
-  "description": "",
+  "description": "y",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,5 +31,9 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "y"
   }
 }

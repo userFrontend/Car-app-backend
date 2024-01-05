@@ -38,14 +38,7 @@ const carCtrl = {
     },
     get: async (req, res) => {
         try {
-            const cars = await Car.aggregate([
-                {$lookup: {from: "category", let: {carId: '$_id'},
-                pipeline: [
-                    {$match: {$expr: {$eq: ["$categoryId", "$$carId"]}}}
-                ],
-                as: "categoryId"
-            }},
-            ])
+            const cars = await Car.find().populate('author', '_id firstname lastname email role phoneNumber avatar isActive createdAt updatedAt').populate('categoryId')
             res.status(200).json({message: 'Cars', cars})
         } catch (error) {
             res.status(503).json({message: error.message})

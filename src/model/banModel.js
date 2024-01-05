@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 
 const banSchema = new mongoose.Schema({
    ban: {
-    typeof: Array
+    type: Array,
+    default: []
    }
 },
 {timestamps: true},

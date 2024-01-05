@@ -19,7 +19,7 @@ const CategoryRouter = require('./src/router/categoryRouter');
 
 
 const app = express();
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4000;
 
 const server = http.createServer(app)
 const io = socketIo(server, {
