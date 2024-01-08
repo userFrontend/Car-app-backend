@@ -12,10 +12,6 @@ const messageSchema = new mongoose.Schema({
         ref: 'Author',
         required: true
     },
-    categoryId: {
-        type: String,
-        required: true
-    },
     content: {
         type: String,
     },
