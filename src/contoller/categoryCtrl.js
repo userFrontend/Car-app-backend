@@ -4,7 +4,6 @@ const {v4} = require('uuid');
 
 const path = require('path');
 const fs = require('fs');
-
 const uploadsDir = path.join(__dirname, "../", "public");
 
 const CategoryCtrl = {
